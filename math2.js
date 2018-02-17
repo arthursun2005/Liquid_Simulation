@@ -186,13 +186,15 @@ Point2.prototype.rotateA = function(a,d) {
 		this.y = this.y*c+this.x*s;
 	}
 };
-Point2.prototype.copy = function(p) {
-	this.x = p.x;
-	this.y = p.y;
+Point2.prototype.copy = function() {
+	return new Point2(this.x,this.y);
 };
 Point2.prototype.mag = function(){
 	return mag2(this.x,this.y);
 };
+Point2.prototype.cross = function(b){
+	return this.x*b.y-this.y*b.x;
+}
 Point2.prototype.heading = function(){
 	return Math.atan2(this.y,this.x)
 };
@@ -225,6 +227,9 @@ Point2.heading = function(p){
 };
 Point2.dot = function(a,b){
 	return a.x*b.x+a.y*b.y;
+}
+Point2.cross = function(a,b){
+	return a.x*b.y-a.y*b.x;
 }
 Point2.rotateA = function(p,a,d) {
 	var r = new Point2();

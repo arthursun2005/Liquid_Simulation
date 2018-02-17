@@ -6,8 +6,40 @@
 <head>
 	<title>Liquid Simulation 2.1v</title>
 </head>
-<body>
+<canvas id="c1"></canvas>
 <script src="math2.js"></script>
+<script type="text/javascript">
+	const c1 = document.getElementById('c1');
+	function init(){
+		c1.width = window.innerWidth, c1.height = window.innerHeight;
+		c1.style = "border: solid 2px #000000";
+	}
+	init();
+	function ff(f){return f;}
+</script>
+<script src="Line.js"></script>
 <script src="Particle.js"></script>
+<script type="text/javascript">
+	function background(a,b){
+		var d = a.getContext("2d");
+		d.beginPath();
+		d.fillStyle = b;
+		d.fillRect(0, 0, a.width, a.height);
+	}
+	var P = new ParticleSystem(c1);
+	P.g = new Point2(0, 1/20);
+	function run(){
+		background(c1, "#000");
+		var p = new Particle(c1.width/2,600);
+		p.v.x = random(-0.1,0.1);
+		p.v.y = -3;
+		P.addParticle(p);
+		P.update();
+		P.draw();
+		window.setTimeout(run, 5);
+	}
+	run();
+</script>
+<body>
 </body>
 </html>
