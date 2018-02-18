@@ -1,16 +1,16 @@
 function Particle(x,y){
 	this.p = new Point2(x,y);
 	this.v = new Point2();
-	this.r = 2;
+	this.r = 2.7;
 	this.m = this.r*this.r;
-	this.w0 = 2.50;
+	this.w0 = 36;
 	this.weight = 0;
 	this.pressure = 0;
-	this.pressureForce = 0.1;
-	this.repelForce = 0.75;
-	this.viscousForce = 0.05;
-	this.c = "#ffffff80";
-	this.friction = 0.999;
+	this.pressureForce = 0.025;
+	this.repelForce = 1;
+	this.viscousForce = 0.075;
+	this.c = "#ddddffaa";
+	this.friction = 1;
 	this.fixed = false;
 	this.mixColor = false;
 }
