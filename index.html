@@ -27,16 +27,33 @@
 		d.fillRect(0, 0, a.width, a.height);
 	}
 	var P = new ParticleSystem(c1);
-	P.g = new Point2(0, 1/20);
+	P.g = new Point2(0, 1/30);
+	var r = pointsOfLine(new Point2(30,400),new Point2(830,500),6);
+	for (var i = r.length - 1; i >= 0; i--) {
+		var p = new Particle(r[i].x,r[i].y);
+		p.fixed = true;
+		p.r = 3;
+		p.c = "#0f0";
+		p.repelForce = 20;
+		p.pressureForce = 0.05;
+		P.addParticle(p);
+	}
+	function t(event){
+		var rr = 6;
+		for(var x=-rr;x<=rr;x++){
+			for(var y=-rr;y<=rr;y++){
+				var p = new Particle(x*4+event.offsetX,4*y+event.offsetY);
+				P.addParticle(p);
+			}
+		}
+	}
+	c1.addEventListener("mousedown",t);
+	console.log(P.ps.length);
 	function run(){
 		background(c1, "#000");
-		var p = new Particle(c1.width/2,600);
-		p.v.x = random(-0.1,0.1);
-		p.v.y = -3;
-		P.addParticle(p);
 		P.update();
 		P.draw();
-		window.setTimeout(run, 5);
+		window.setTimeout(run, 3);
 	}
 	run();
 </script>

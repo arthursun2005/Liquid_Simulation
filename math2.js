@@ -50,6 +50,14 @@ function straightBlockTest(a,b){
     var zin = a.p.z+a.d.z/2>b.p.z-b.d.z/2 && a.p.z-a.d.z/2<b.p.z+b.d.z/2;
     return [xin,yin,zin];
 }
+function pointsOfLine(p1,p2,s = 1){
+	var ps = [];
+	var d = Point2.sub(p2,p1), m = d.mag(), a = d.heading();
+	for(var i=0;i<=m;i+=s){
+		ps.push(new Point2(Math.cos(a)*i+p1.x,Math.sin(a)*i+p1.y));
+	}
+	return ps;
+}
 // 3D point
 function Point3(x,y,z){
 	this.x = x || 0;
@@ -93,7 +101,7 @@ Point3.prototype.ceil = function() {
 	this.z = Math.ceil(this.z);
 };
 Point3.prototype.get = function(){
-	return new Point(this.x,this.y,this.z);
+	return new Point3(this.x,this.y,this.z);
 };
 Point3.prototype.mag = function(){
 	return mag3(this.x,this.y,this.z);
@@ -132,7 +140,7 @@ Point3.copy = function(a,b){
 };
 Point3.normalize = function(p){
 	var n = Point3.mag(p);
-	return new Point(p.x/n,p.y/n,p.z/n);
+	return new Point3(p.x/n,p.y/n,p.z/n);
 };
 // 2D
 function Point2(x,y){
@@ -169,7 +177,7 @@ Point2.prototype.ceil = function() {
 	this.y = Math.ceil(this.y);
 };
 Point2.prototype.get = function(){
-	return new Point(this.x,this.y);
+	return new Point2(this.x,this.y);
 };
 Point2.prototype.normalize = function() {
 	var n = Point2.mag(this);
@@ -197,6 +205,15 @@ Point2.prototype.cross = function(b){
 }
 Point2.prototype.heading = function(){
 	return Math.atan2(this.y,this.x)
+};
+Point2.prototype.constrain = function(v) {
+	if(this.mag()>v){
+		var p = this.get();
+		p.normalize();
+		p = Point2.mult(p, v);
+		this.x = p.x;
+		this.y = p.y;
+	}
 };
 // other
 Point2.sub = function(a,b){

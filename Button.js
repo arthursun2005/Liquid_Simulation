@@ -5,10 +5,11 @@ function Button(x,y,dx,dy,t,f){
 	this.t = t;
 	this.df = null;
 	this.f = f;
-	this.c = "#66DD00";
+	this.c = "#66dd00";
 	this.tc = "#000000";
 	this.s = Math.min(this.d.x,this.d.y)/4;
 	this.space = null;
+	this.selected = false;
 }
 Button.prototype.draw = function() {
 	if(!this.space) return null;
@@ -29,6 +30,7 @@ Button.prototype.draw = function() {
 	d.lineWidth = 1;
 	d.fillStyle = this.c;
 	d.strokeStyle = this.tc;
+	if(this.selected) d.fillStyle = "#fff";
 	d.stroke();
 	d.fill();
 	d.beginPath();
